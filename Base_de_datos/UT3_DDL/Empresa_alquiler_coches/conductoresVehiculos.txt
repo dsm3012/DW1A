@@ -1,0 +1,13 @@
+Se desea almacenar la información de los conductores que salen de la empresa con un vehículo.
+Para cada conductor se almacenará su NIF, nombre, primer apellido, Permiso de conducir (con valores A, B, C ó D)  teléfono y email.
+Para cada vehículo se almacenará su matrícula, marca y modelo.
+Se desea tener un registro de la salida de cada vehículo, con el DNI del conductor que lo ha sacado, fecha de salida (por defecto será la fecha del día en que se inserta el registro) y una fecha de entrada que no puede ser anterior a la fecha de salida.
+
+1. Representar mediante un Diagrama E/R la información anterior.
+2. Crear el Modelo Relacional.
+3. Normalizar hasta 3FN
+
+4. Crear el usuario empresario.
+5. Crear una conexión para empresario.
+6. Crear las tablas para almacenar datos.
+7. Insertar registros
