@@ -1,0 +1,40 @@
+--trabajar con impresión en salida de script
+--activamos el servidor de salida
+SET SERVEROUTPUT ON;
+
+--DIFERENCIA ENTRE %TYPE Y %ROWTYPE
+
+--BLOQUE ANÓNIMO DONDE USES %TYPE
+
+
+
+
+
+--PA DONDE USES %ROWTYPE
+--PRIMER EJEMPLO SIN CURSORES
+--AL EJECUTAR EL PA DE PR_SCOTT, DEVUELVE DATOS DEL DEPT ASOCIADO AL NÚMERO INTRODUCIDO
+--COMO PARÁMETRO DE ENTRADA
+create or replace procedure pr_scott(CD DEPT.DEPTNO%TYPE)--se puede especificar que es parámetro de entrada con IN
+as
+vx dept%rowtype;
+
+begin
+    --SINTAXIS VÁLIDAS
+    --SELECT * INTO VX FROM DEPT WHERE DEPTNO=CD;
+    SELECT DEPTNO,DNAME,LOC INTO VX.DEPTNO, VX.DNAME,VX.LOC FROM DEPT WHERE DEPTNO=CD;
+    DBMS_OUTPUT.PUT_LINE('Datos del departamento con nº ' || VX.DEPTNO);
+    DBMS_OUTPUT.PUT_LINE('Nombre: ' || vx.dname || ' localizado en '||vx.loc);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('NO EXISTE EL DEPARTAMENTO '||CD);
+end;
+/
+
+--EJECUCIÓN DEL PROCEDIMIENTO ALMACENADO
+EXEC PR_SCOTT(20);
+
+--DENTRO DE BLOQUE ANÓNIMO
+BEGIN
+    PR_SCOTT(1000);
+END;
+/

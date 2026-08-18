@@ -1,0 +1,71 @@
+CREATE [OR REPLACE] [FORCE | NOFORCE] VIEW nombre_vista
+[(columna1, columna2, ...)]
+AS subconsulta
+[WITH CHECK OPTION [CONSTRAINT nombre]]
+[WITH READ ONLY [CONSTRAINT nombre]];
+Explicación de los elementos:
+CREATE VIEW nombre_vista → Define el nombre de la vista.
+
+OR REPLACE → Permite redefinir una vista existente sin necesidad de borrarla.
+
+FORCE / NOFORCE →
+
+FORCE: crea la vista aunque las tablas base no existan en ese momento.
+
+NOFORCE: requiere que las tablas base existan.
+
+(columna1, columna2, …) → Lista opcional de nombres de columnas de la vista.
+
+AS subconsulta → La consulta SQL que define la vista.
+
+WITH CHECK OPTION → Impide insertar/actualizar filas que no cumplan la condición de la vista.
+
+WITH READ ONLY → Hace que la vista sea de solo lectura.
+
+Ejemplos prácticos
+1. Vista simplesql
+CREATE VIEW empleados_activos AS
+SELECT employee_id, first_name, last_name, hire_date
+FROM employees
+WHERE status = 'ACTIVE';
+Esta vista muestra solo empleados activos.
+
+2. Vista con alias de columnas
+
+CREATE VIEW resumen_departamentos (dept_id, num_empleados) AS
+SELECT department_id, COUNT(*)
+FROM employees
+GROUP BY department_id;
+Se definen nombres de columnas explícitos para mayor claridad.
+
+3. Vista con OR REPLACE
+
+CREATE OR REPLACE VIEW empleados_activos AS
+SELECT employee_id, first_name, last_name, hire_date, salary
+FROM employees
+WHERE status = 'ACTIVE';
+Actualiza la vista existente sin perder permisos ya concedidos.
+
+4. Vista de solo lectura
+
+CREATE VIEW empleados_publicos AS
+SELECT employee_id, first_name, last_name
+FROM employees
+WITH READ ONLY;
+No permite modificaciones a través de la vista.
+
+5. Vista con CHECK OPTION
+
+CREATE VIEW empleados_madrid AS
+SELECT employee_id, first_name, last_name, city
+FROM employees
+WHERE city = 'Madrid'
+WITH CHECK OPTION;
+Solo se pueden insertar/actualizar filas que tengan city = 'Madrid'.
+
+
+Las vistas no almacenan datos, solo representan resultados de consultas.
+
+Se usan para simplificar consultas, mejorar seguridad y ocultar complejidad.
+
+Puedes combinarlas con funciones, joins y agregaciones para crear vistas más potentes.
